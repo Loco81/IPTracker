@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'classes.dart';
-import 'language.dart';
 import 'main_page.dart';
 
 
@@ -88,7 +87,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    APPNAME.addListener(() {if(mounted) setState(() {});});
+    sentences.APPNAME.addListener(() {if(mounted) setState(() {});});
   }
 
   @override
@@ -99,12 +98,12 @@ class _HomePageState extends State<HomePage> {
         body: MainPage(),
         appBar: AppBar(
           title: Center(child: SizedBox(width: 750.w, child: TextField(
-            controller: APPNAME,
+            controller: sentences.APPNAME,
             decoration: const InputDecoration(
               border: OutlineInputBorder(borderSide: BorderSide.none),
             ),
             textAlign: TextAlign.center,
-            style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 78.sp),
+            style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 78.sp),
             readOnly: true,
           ),)),
           centerTitle: true,

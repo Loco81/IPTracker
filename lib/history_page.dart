@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'language.dart';
 import 'classes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +30,7 @@ class _HistoryPageState extends State<HistoryPage> {
         body: Column(
           children: [
             CustomAnimatedToggle(
-              values: [PUBLIC_IP, LOCAL_WIFI],
+              values: [sentences.PUBLIC_IP, sentences.LOCAL_WIFI],
               onToggleCallback: (value) {
                 setState(() {
                   pagelistToggleValue = value;
@@ -58,7 +57,7 @@ class _HistoryPageState extends State<HistoryPage> {
           ],
         ),
         appBar: AppBar(
-          title: Center(child: SizedBox(width: 750.w, child: Text(CHANGE_HISTORY, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 60.sp),),)),
+          title: Center(child: SizedBox(width: 750.w, child: Text(sentences.CHANGE_HISTORY, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 60.sp),),)),
           centerTitle: true,
           backgroundColor: Color.fromARGB(15, theme[1], theme[2], theme[3]),
           shape: RoundedRectangleBorder(
@@ -221,7 +220,7 @@ class _PublicIpHistoryState extends State<PublicIpHistory> {
                         ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Text(rowItems[1], style: TextStyle(fontFamily: 'AveriaLibre', color: Colors.green[700], fontSize: 44.sp),),
+                          child: Text(rowItems[1].toString(), style: TextStyle(fontFamily: 'AveriaLibre', color: Colors.green[700], fontSize: 44.sp),),
                         ),
                         Text(rowItems[2], style: TextStyle(fontFamily: 'AveriaLibre', fontSize: 44.sp),),
                       ]

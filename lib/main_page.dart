@@ -5,7 +5,6 @@ import 'package:animations/animations.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'history_page.dart';
 import 'classes.dart';
-import 'language.dart';
 
 
 
@@ -25,9 +24,9 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
 
-    Future<void> publicIpChanged(ip) async {
+    Future<void> publicIpChanged(String ip) async {
       isLoading = false;
-      if(ip!='') {
+      if(ip.isNotEmpty) {
         locationInfo.value = await getLocationFromIP(ip);
         if(publicIpHistory.isNotEmpty) {
           if(ip.toString() != (publicIpHistory.last[0])) {
@@ -137,7 +136,7 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(height: 50.r,),
-                  Text(PUBLIC_IP_INFO, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 64.sp),),
+                  Text(sentences.PUBLIC_IP_INFO, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 64.sp),),
                   SizedBox(height: 50.r,),
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -157,7 +156,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                       SizedBox(width: 15.w,),
-                      Text(isVpnActivated ? VPN_IS_ACTIVE : VPN_IS_NOT_ACTIVE, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontSize: 50.sp),),
+                      Text(isVpnActivated ? sentences.VPN_IS_ACTIVE : sentences.VPN_IS_NOT_ACTIVE, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontSize: 50.sp),),
                     ],
                   ),
                   Row(
@@ -178,7 +177,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ),
                       SizedBox(width: 15.w,),
-                      Text(ipInfo.containsKey('Internet') ? INTERNET_ACCESS : NO_INTERNET_ACCESS, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontSize: 50.sp),),
+                      Text(ipInfo.containsKey('Internet') ? sentences.INTERNET_ACCESS : sentences.NO_INTERNET_ACCESS, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontSize: 50.sp),),
                     ],
                   ),
                   Visibility(
@@ -200,7 +199,7 @@ class _MainPageState extends State<MainPage> {
                             )]
                           ),
                           child: Center(
-                            child: Text(PUBLIC_IP, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
+                            child: Text(sentences.PUBLIC_IP, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
                           ),
                         ),
                         SizedBox(width: 18.w,),
@@ -214,10 +213,10 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   SizedBox(height: 50.r,),
-                  Text(LOCAL_IP_INFO, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 64.sp),),
+                  Text(sentences.LOCAL_IP_INFO, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 64.sp),),
                   SizedBox(height: 50.r,),
                   isVpnActivated ?
-                    Text(TURN_OFF_VPN, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontSize: 46.sp),) :
+                    Text(sentences.TURN_OFF_VPN, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontSize: 46.sp),) :
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -238,7 +237,7 @@ class _MainPageState extends State<MainPage> {
                                 )]
                               ),
                               child: Center(
-                                child: Text(WIFI, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
+                                child: Text(sentences.WIFI, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
                               ),
                             ),
                             SizedBox(width: 15.w,),
@@ -262,7 +261,7 @@ class _MainPageState extends State<MainPage> {
                                 )]
                               ),
                               child: Center(
-                                child: Text(HOTSPOT, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
+                                child: Text(sentences.HOTSPOT, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
                               ),
                             ),
                             SizedBox(width: 15.w,),
@@ -299,7 +298,7 @@ class _MainPageState extends State<MainPage> {
                               )
                             ]
                           ),
-                          child: Center(child: Text(CHANGE_HISTORY, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontSize: 48.r, color: Color.fromARGB(255, theme[1], theme[2], theme[3])),),),
+                          child: Center(child: Text(sentences.CHANGE_HISTORY, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontSize: 48.r, color: Color.fromARGB(255, theme[1], theme[2], theme[3])),),),
                         )
                       );
                     },

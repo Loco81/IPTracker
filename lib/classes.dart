@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:is_valid/is_valid.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -18,8 +19,9 @@ import 'history_page.dart';
 
 
 
-final LocalStorage storage = LocalStorage('IPTracker');
+final LocalStorage storage = LocalStorage('LoCo@IPTracker');
 final networkInfo = NetworkInfo();
+Language sentences = Language();
 List<String> deviceInfo = [];
 List<int> theme = [];
 
@@ -67,10 +69,10 @@ Future<void> getTheme() async {
 
   if (gettedTheme[5] == 'english') {
     languageValue='English';
-    setLanguage(languageValue);
+    sentences.setLanguage(languageValue);
   } else {
     languageValue='Persian';
-    setLanguage(languageValue);
+    sentences.setLanguage(languageValue);
   }
 
   wifiIpHistory = await storage.getItem('wifiIpHistory') ?? [];
@@ -98,12 +100,12 @@ void changeLanguage() async {
   HapticFeedback.mediumImpact();
   if (languageValue=='English'){
     languageValue='Persian';
-    setLanguage(languageValue);
+    sentences.setLanguage(languageValue);
     await storage.setItem('language', 'persian');
   }
   else{
     languageValue='English';
-    setLanguage(languageValue);
+    sentences.setLanguage(languageValue);
     await storage.setItem('language', 'english');
   }
 }
@@ -126,47 +128,50 @@ void showAbout(BuildContext context) {
                 borderRadius: BorderRadius.circular(400.r),
                 side: BorderSide.none,
               ),
-              title: Text(ABOUT, textAlign: TextAlign.center, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 86.sp),),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 60.r,
-                        height: 60.r,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(200, theme[1], theme[2], theme[3]),
-                          boxShadow: [BoxShadow(
-                            color: Color.fromARGB(140, theme[1], theme[2], theme[3]),
-                            blurRadius: 5,
-                            offset: Offset.zero
-                          )]
+              title: Text(sentences.ABOUT, textAlign: TextAlign.center, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 86.sp),),
+              content: SingleChildScrollView(
+                clipBehavior: Clip.none,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 60.r,
+                          height: 60.r,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(200, theme[1], theme[2], theme[3]),
+                            boxShadow: [BoxShadow(
+                              color: Color.fromARGB(140, theme[1], theme[2], theme[3]),
+                              blurRadius: 5,
+                              offset: Offset.zero
+                            )]
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 4,),
-                      Text(ABOUT_SUBJECT, textAlign: TextAlign.center, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontSize: 56.sp),),
-                      SizedBox(width: 4,),
-                      Container(
-                        width: 60.r,
-                        height: 60.r,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(200, theme[1], theme[2], theme[3]),
-                          boxShadow: [BoxShadow(
-                            color: Color.fromARGB(140, theme[1], theme[2], theme[3]),
-                            blurRadius: 5,
-                            offset: Offset.zero
-                          )]
+                        SizedBox(width: 4,),
+                        Text(sentences.ABOUT_SUBJECT, textAlign: TextAlign.center, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontSize: 56.sp),),
+                        SizedBox(width: 4,),
+                        Container(
+                          width: 60.r,
+                          height: 60.r,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(200, theme[1], theme[2], theme[3]),
+                            boxShadow: [BoxShadow(
+                              color: Color.fromARGB(140, theme[1], theme[2], theme[3]),
+                              blurRadius: 5,
+                              offset: Offset.zero
+                            )]
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Text(ABOUT_DESCRIPTION, textAlign: TextAlign.center, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontSize: 50.sp), textDirection: languageValue=='English' ? TextDirection.ltr : TextDirection.rtl,),
-                ],
+                      ],
+                    ),
+                    Text(sentences.ABOUT_DESCRIPTION, textAlign: TextAlign.center, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontSize: 50.sp), textDirection: languageValue=='English' ? TextDirection.ltr : TextDirection.rtl,),
+                  ],
+                ),
               ),
               actions: [
                 Row(
@@ -175,7 +180,7 @@ void showAbout(BuildContext context) {
                     GestureDetector(
                       child: Image.asset('assets/Gmail.png', width: 170.r),
                       onTap: () => urlLauncher(
-                          'mailto:hosseinbahiraei81@gmail.com?subject=$MAIL_SUB&body=$MAIL_BOD'),
+                          'mailto:hosseinbahiraei81@gmail.com?subject=$sentences.MAIL_SUB&body=$sentences.MAIL_BOD'),
                     ),
                     SizedBox(width: 24.w),
                     GestureDetector(
@@ -185,7 +190,7 @@ void showAbout(BuildContext context) {
                   ],
                 ),
                 const SizedBox(height: 10,),
-                Center(child: Text(VERSION, style: TextStyle(fontFamily: 'AveriaLibre', fontSize: 45.sp),))
+                Center(child: Text(sentences.VERSION, style: TextStyle(fontFamily: 'AveriaLibre', fontSize: 45.sp),))
               ],
             ),
           ),
@@ -223,7 +228,7 @@ void showIpInfo(BuildContext context) {
               title: ValueListenableBuilder(
                 valueListenable: currentPublicIp, 
                 builder: (context, value, child) {
-                  return Text(currentPublicIp.value!='' ? currentPublicIp.value : NO_INTERNET_ACCESS, textAlign: TextAlign.center, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 80.sp),);
+                  return Text(currentPublicIp.value!='' ? currentPublicIp.value : sentences.NO_INTERNET_ACCESS, textAlign: TextAlign.center, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 80.sp),);
                 }
               ),
               content: ValueListenableBuilder(
@@ -254,7 +259,7 @@ void showIpInfo(BuildContext context) {
                                   )]
                                 ),
                                 child: Center(
-                                  child: Text('Location', style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
+                                  child: Text('Location', style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
                                 )
                               ),
                               SizedBox(width: 18.w,),
@@ -282,7 +287,7 @@ void showIpInfo(BuildContext context) {
                                   )]
                                 ),
                                 child: Center(
-                                  child: Text('Time Zone', style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
+                                  child: Text('Time Zone', style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
                                 )
                               ),
                               SizedBox(width: 18.w,),
@@ -310,7 +315,7 @@ void showIpInfo(BuildContext context) {
                                   )]
                                 ),
                                 child: Center(
-                                  child: Text('ISP', style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
+                                  child: Text('ISP', style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontWeight: FontWeight.bold, color: Theme.of(context).cardColor, fontSize: 36.sp),),
                                 )
                               ),
                               SizedBox(width: 18.w,),
@@ -358,8 +363,8 @@ void customDialog(BuildContext context, subject, str, List<Widget> actions) {
                 borderRadius: BorderRadius.circular(380.r),
                 side: BorderSide.none,
               ),
-              title: subject=='' ? null : Text(subject, textAlign: TextAlign.center, style: TextStyle(fontFamily: FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 58.sp),),
-              content: Text(str, style: TextStyle(fontFamily: FONTFAMILY_DESCRIPTION, fontSize: 48.sp), textDirection: languageValue=='English' ? TextDirection.ltr : TextDirection.rtl,),
+              title: subject=='' ? null : Text(subject, textAlign: TextAlign.center, style: TextStyle(fontFamily: sentences.FONTFAMILY_SUBJECT, fontWeight: FontWeight.bold, fontSize: 58.sp),),
+              content: Text(str, style: TextStyle(fontFamily: sentences.FONTFAMILY_DESCRIPTION, fontSize: 48.sp), textDirection: languageValue=='English' ? TextDirection.ltr : TextDirection.rtl,),
               actions: actions.isEmpty ? null : actions,
             ),
           ),
@@ -411,7 +416,7 @@ void rebuildAllChildren(BuildContext context) {
       el.markNeedsBuild();
       el.visitChildren(rebuild);
     }
-    catch (e) {}
+    catch (e) {/**/}
   }
 
   (context as Element).visitChildren(rebuild);
@@ -432,6 +437,7 @@ class CustomAnimatedToggle extends StatefulWidget {
     this.textColor = const Color(0xFF000000),
   });
   @override
+  // ignore: library_private_types_in_public_api
   _CustomAnimatedToggleState createState() => _CustomAnimatedToggleState();
 }
 
@@ -473,7 +479,7 @@ class _CustomAnimatedToggleState extends State<CustomAnimatedToggle> {
                     child: Text(
                       widget.values[index],
                       style: TextStyle(
-                        fontFamily: FONTFAMILY_SUBJECT, 
+                        fontFamily: sentences.FONTFAMILY_SUBJECT, 
                         fontWeight: FontWeight.bold, 
                         fontSize: 46.r,
                         color: Color.fromARGB(150, 95, 95, 95),
@@ -510,7 +516,7 @@ class _CustomAnimatedToggleState extends State<CustomAnimatedToggle> {
                   child: Text(
                     initialPosition ? widget.values[0] : widget.values[1],
                     style: TextStyle(
-                      fontFamily: FONTFAMILY_SUBJECT, 
+                      fontFamily: sentences.FONTFAMILY_SUBJECT, 
                       fontWeight: FontWeight.bold, 
                       fontSize: 50.r,
                       color: widget.textColor,
@@ -555,7 +561,7 @@ Future<Map> getIp() async {
 
   // Local WiFi
   List<ConnectivityResult> result = await Connectivity().checkConnectivity();
-  if (result[0] == ConnectivityResult.wifi || result[0] == ConnectivityResult.ethernet) {
+  if ((result[0] == ConnectivityResult.wifi || result[0] == ConnectivityResult.ethernet) && !isVpnActivated) {
     try {
       ipInfo['WiFi'] = (await NetworkInfo().getWifiIP().timeout(Duration(seconds: 1), onTimeout: () => ''))!;
     } catch (e) {/**/}
@@ -577,7 +583,12 @@ Future<Map> getIp() async {
     var ipAddress = IpAddress(type: RequestType.json);
 
     dynamic data = await ipAddress.getIpAddress().timeout(Duration(seconds: 6), onTimeout: () => '');
-    ipInfo['Internet'] = data['ip'].toString();
+    if(IsValid.validateIP4Address(data['ip'].toString())) {
+      ipInfo['Internet'] = data['ip'].toString();
+    }
+    else {
+      locationInfo.value = <String, dynamic>{};
+    }
   } catch (exception) {/**/}
 
   return ipInfo;
