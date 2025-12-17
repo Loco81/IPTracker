@@ -19,7 +19,7 @@ import 'history_page.dart';
 
 
 
-final LocalStorage storage = LocalStorage('LoCo@IPTracker');
+final LocalStorage storage = LocalStorage('IPTracker');
 final networkInfo = NetworkInfo();
 Language sentences = Language();
 List<String> deviceInfo = [];
@@ -617,4 +617,5 @@ Future<Map<String, dynamic>> getLocationFromIP(String ip) async {
   } catch (e) {
     return <String, dynamic>{};
   }
+
 }
